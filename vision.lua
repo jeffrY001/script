@@ -9,8 +9,8 @@ local night = false
 
 updates = false
 
-local script_vers = 2
-local script_vers_text = '1.1'
+local script_vers = 1
+local script_vers_text = '1.0'
 local update_url = 'https://raw.githubusercontent.com/jeffrY001/script/main/update.ini'
 local update_path = getWorkingDirectory() .. '/update.ini'
 
@@ -21,15 +21,15 @@ function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
     while not isSampAvailable() do wait(2500) end
 
-	sampAddChatMessage("{6666FF}Vision: {ffffff}Автор скрпита: {6666FF}jeffrY{ffffff}. {ffffff}Активация: {6666ff}/vis", 0xffffff)
+	sampAddChatMessage("{6666FF}Vision: {ffffff}Автор скрипта: {6666FF}jeffrY{ffffff}. {ffffff}Активация: {6666ff}/vis", 0xffffff)
 	sampRegisterChatCommand('vis', vis)
-	sampRegisterChatCommand('new', new)
+	_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
 
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			update_ini = inicfg.load(nil, update_path)
 			if tonumber(update_ini.info.vers) > script_vers then
-				sampAddChatMessage('{6666FF}Vision: {ffffff}Доступно новое{6666FF}ОБНОВЛЕНИЕ',-1)
+				sampAddChatMessage('{6666FF}Vision: {ffffff}Доступно новое {6666FF}ОБНОВЛЕНИЕ',-1)
 				updates = true
 			end
 			os.remove(update_path)
@@ -50,7 +50,7 @@ function main()
 end
 
 function vis()
-    sampShowDialog(8003, '{FF5656}Vision {ffffff}by {FF5656}jeffrY.', '1. Ночное зрение\n2. Инфракрасное зрение', 'Выбрать', 'Закрыть', 4)
+    sampShowDialog(8003, '{FF5656}Vision {ffffff}by {FF5656}jeffrY.', '1. Ночное видение\n2. Инфракрасное видение', 'Выбрать', 'Закрыть', 4)
     lua_thread.create(vis_list)
 end
 
@@ -61,19 +61,16 @@ function vis_list()
         if result then
             if button == 1 and list == 0 then
             	night = not night
-				sampAddChatMessage(night and '{ffffff}Ночное зрение {008000}ON' or '{ffffff}Ночное зрение {FF5656}OFF', -1)
+				sampAddChatMessage(night and '{ffffff}Ночное видение {008000}ON' or '{ffffff}Ночное видение {FF5656}OFF', -1)
 				setNightVision(night)
             end
             if button == 1 and list == 1 then
             	active = not active
-				sampAddChatMessage(active and '{ffffff}Инфракрасное зрение {008000}ON' or '{ffffff}Инфракрасное зрение {FF5656}OFF', -1)
+				sampAddChatMessage(active and '{ffffff}Инфракрасное видение {008000}ON' or '{ffffff}Инфракрасное видение {FF5656}OFF', -1)
 				setInfraredVision(active)
             end
         end
     end
 end
 
-function new()
-	sampAddChatMessage('1', -1)
-end
 
