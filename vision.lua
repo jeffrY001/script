@@ -9,8 +9,8 @@ local night = false
 
 updates = false
 
-local script_vers = 1
-local script_vers_text = '1.0'
+local script_vers = 2
+local script_vers_text = '1.1'
 local update_url = 'https://raw.githubusercontent.com/jeffrY001/script/main/update.ini'
 local update_path = getWorkingDirectory() .. '/update.ini'
 
@@ -42,6 +42,7 @@ function main()
 	    	downloadUrlToFile(script_url, script_path, function(id, status)
 				if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 					thisScript():reload()
+					sampAddChatMessage('{6666FF}Vision: {ffffff}скрипт успешно обновлён.', -1)
 				end
 			end)
 			break
