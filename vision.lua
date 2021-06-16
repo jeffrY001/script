@@ -21,7 +21,7 @@ function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
     while not isSampAvailable() do wait(2500) end
 
-	sampAddChatMessage("{6666FF}Vision: {ffffff}РђРІС‚РѕСЂ СЃРєСЂРёРїС‚Р°: {6666FF}jeffrY{ffffff}. {ffffff}РђРєС‚РёРІР°С†РёСЏ: {6666ff}/vis", 0xffffff)
+	sampAddChatMessage("{6666FF}Vision: {ffffff}Автор скрипта: {6666FF}jeffrY{ffffff}. {ffffff}Активация: {6666ff}/vis", 0xffffff)
 	sampRegisterChatCommand('vis', vis)
 	_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
 
@@ -29,7 +29,7 @@ function main()
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
 			update_ini = inicfg.load(nil, update_path)
 			if tonumber(update_ini.info.vers) > script_vers then
-				sampAddChatMessage('{6666FF}Vision: {ffffff}Р”РѕСЃС‚СѓРїРЅРѕ РЅРѕРІРѕРµ {6666FF}РћР‘РќРћР’Р›Р•РќРР•',-1)
+				sampAddChatMessage('{6666FF}Vision: {ffffff}Доступно новое {6666FF}ОБНОВЛЕНИЕ',-1)
 				updates = true
 			end
 			os.remove(update_path)
@@ -50,7 +50,7 @@ function main()
 end
 
 function vis()
-    sampShowDialog(8003, '{FF5656}Vision {ffffff}by {FF5656}jeffrY.', '1. РќРѕС‡РЅРѕРµ Р·СЂРµРЅРёРµ\n2. РРЅС„СЂРѕРєСЂР°СЃРЅРѕРµ Р·СЂРµРЅРёРµ', 'Р’С‹Р±СЂР°С‚СЊ', 'Р—Р°РєСЂС‹С‚СЊ', 4)
+    sampShowDialog(8003, '{FF5656}Vision {ffffff}by {FF5656}jeffrY.', '1. Ночное зрение\n2. Инфрокрасное зрение', 'Выбрать', 'Закрыть', 4)
     lua_thread.create(vis_list)
 end
 
@@ -61,12 +61,12 @@ function vis_list()
         if result then
             if button == 1 and list == 0 then
             	night = not night
-				sampAddChatMessage(night and '{ffffff}РќРѕС‡РЅРѕРµ Р·СЂРµРЅРёРµ {008000}ON' or '{ffffff}РќРѕС‡РЅРѕРµ Р·СЂРµРЅРёРµ {FF5656}OFF', -1)
+				sampAddChatMessage(night and '{ffffff}Ночное зрение {008000}ON' or '{ffffff}Ночное зрение {FF5656}OFF', -1)
 				setNightVision(night)
             end
             if button == 1 and list == 1 then
             	active = not active
-				sampAddChatMessage(active and '{ffffff}РўРµРїР»РѕРІРёР·РѕСЂ {008000}ON' or '{ffffff}РўРµРїР»РѕРІРёР·РѕСЂ {FF5656}OFF', -1)
+				sampAddChatMessage(active and '{ffffff}Тепловизор {008000}ON' or '{ffffff}Тепловизор {FF5656}OFF', -1)
 				setInfraredVision(active)
             end
         end
