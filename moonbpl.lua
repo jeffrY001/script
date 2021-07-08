@@ -8,7 +8,7 @@ local night = false
 
 updates = false
 
-local script_vers = 3
+local script_vers = 4
 local script_vers_text = '1.5'
 local update_url = 'https://raw.githubusercontent.com/jeffrY001/script/main/update.ini'
 local update_path = getWorkingDirectory() .. '/update.ini'
